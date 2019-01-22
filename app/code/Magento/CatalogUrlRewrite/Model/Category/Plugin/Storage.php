@@ -47,11 +47,13 @@ class Storage
         $toSave = [];
         foreach ($this->filterUrls($result) as $record) {
             $metadata = $record->getMetadata();
+            if(!empty($metadata)){
             $toSave[] = [
                 'url_rewrite_id' => $record->getUrlRewriteId(),
                 'category_id' => $metadata['category_id'],
                 'product_id' => $record->getEntityId(),
             ];
+        }
         }
         if ($toSave) {
             $this->productResource->saveMultiple($toSave);
